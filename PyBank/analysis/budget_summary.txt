@@ -1,0 +1,4 @@
+The total profit/loss is $38382578.0 over the last 85 months
+Average = $ 451559.74
+Max Profit was $ 1170593.00 on 2012-02-01 00:00:00
+Max Loss was $ -1196225.00 on 2013-09-01 00:00:00
