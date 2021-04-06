@@ -1,11 +1,13 @@
 # elections results
 
-
+#import modules
 import os
 import csv
 
-candidates = dict()
+# create a dictionary to store the votes by candidates
+votes = dict()
 total_votes = 0
+
 # path to file to analyse
 source_file = os.path.join( "Resources", "election_data.csv")
 
@@ -18,16 +20,20 @@ with open(source_file,'r') as data_file:
 	#read the rest of the file and analyse the data
 	for row in csv_reader:
 		
-		#conver the datastring to a datetime object the format is Jan-2021
-		voterID = row[0]
-		county = row[1]
+		#Parse out the row date (ID,county, candidate)
+        # only need the candidate name
+		#voterID = row[0]
+		#county = row[1]
 		candidate = row[2]
 		total_votes += 1
 		
-		if candidate in candidates:
-			candidates[candidate] += 1
+        # of the candidate has been added to the dictionary
+        # increase the value by one
+        # else add it to the dictionary with a value of 1
+		if candidate in votes:
+			votes[candidate] += 1
 		else:
-			candidates[candidate] = 1
+			votes[candidate] = 1
 		
 mostVotes = 0
 winner = ""
@@ -35,13 +41,13 @@ winner = ""
 #Print results to the teminal
 print('Election Results')
 print(f'Total Votes {total_votes:,}')
-for candidate in candidates:
-	votes = candidates[candidate]
-	if votes > mostVotes:
-		mostVotes = votes
+for candidate in votes:
+	num_votes = votes[candidate]
+	if num_votes > mostVotes:
+		mostVotes = num_votes
 		winner = candidate
 	
-	print(f'{candidate:12} had {votes:10,} votes or {(votes/total_votes * 100):4.1f}%' )
+	print(f'{candidate:12} had {num_votes:10,} votes or {(num_votes/total_votes * 100):4.1f}%' )
 
 print(f'The winner was {winner} with {mostVotes:,} votes')
 
@@ -58,13 +64,9 @@ with open(result_path, 'w') as result_file:
 	result_file.write(f'|Candidate | % Votes  |Votes|\n')
 	result_file.write(f'|----- | -----: |-----:|\n')
 	
-	for candidate in candidates:
-		votes = candidates[candidate]
-		if votes > mostVotes:
-			mostVotes = votes
-			winner = candidate
-			
-		result_file.write(f'|{candidate:12} | {(votes/total_votes * 100):4.1f}% | {votes:10,}|\n' )
+	for candidate in votes:
+		num_votes = votes[candidate]
+		result_file.write(f'|{candidate:12} | {(num_votes/total_votes * 100):4.1f}% | {num_votes:10,}|\n' )
 		
 	result_file.write(f'\nThe winner was {winner} with {mostVotes:,} votes')
 	

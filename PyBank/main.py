@@ -1,15 +1,18 @@
 # analysis of Profit lost 
+# Geoffrey Flynn 
+# 04-05-2021
+
 
 import os
 import csv
 from datetime import datetime, date, time
 
 # initialize values
-firstdate = datetime.strptime("1-1-9900", "%m-%d-%Y")
-endDate = datetime.strptime("1-1-1900", "%m-%d-%Y")
-total = 0.0
-max_profit = 0
-max_loss = 0
+firstdate = datetime.strptime("1-1-9900", "%m-%d-%Y") #date of the first entry
+endDate = datetime.strptime("1-1-1900", "%m-%d-%Y") # date of the last transaction
+total = 0.0	# Running total
+max_profit = 0 # value of the max Profit
+max_loss = 0	# value of the max loss
 profit_date = datetime.strptime("1-1-9900", "%m-%d-%Y")
 loss_date = datetime.strptime("1-1-9900", "%m-%d-%Y")
 
@@ -28,19 +31,19 @@ with open(bank_file,'r') as data_file:
 		#conver the datastring to a datetime object the format is Jan-2021
 		aDate = datetime.strptime(row[0], "%b-%Y")
 		amount = int(row[1]) # conver the amount from a string to an integer
-		total += amount # and the value to the running total
+		total += amount # add the value to the running total
 		
-		# looking for the earliest data and the latest date
+		# looking for the earliest date and the latest date
 		if aDate < firstdate:
 			firstdate = aDate
 		elif aDate > endDate:
 			endDate = aDate
 		
-		# finding the max profit and storing it and the date for later
+		# finding the max profit and storing it and its date for later
 		if amount > max_profit:
 			max_profit = amount
 			profit_date = aDate
-			
+		# finding the max profit and storing it and its date for later
 		elif amount < max_loss:
 			max_loss = amount
 			loss_date = aDate
